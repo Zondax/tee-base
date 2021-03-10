@@ -4,24 +4,35 @@
 #include <librustee_ta.h>
 #include <rustee_ta.h>
 
-#define UNUSED(X) (void)&X;
+TEE_Result TA_CreateEntryPoint(void) {
+  DMSG("Create entry point\n");
 
-TEE_Result TA_OpenSessionEntryPoint(uint32_t param_types,
-                                    TEE_Param params[4],
-                                    void **sess_ctx) {
-    UNUSED(params)
-    UNUSED(sess_ctx)
-    UNUSED(param_types)
-    DMSG("Open Session entry point\n");
-
-    return TEE_SUCCESS;
+  return RUSTEE_Create();
 }
 
-TEE_Result TA_InvokeCommandEntryPoint(void *sess_ctx,
-                                      uint32_t cmd_id,
+void TA_DestroyEntryPoint(void) {
+  DMSG("Destroy entry point\n");
+
+  return RUSTEE_Destroy();
+}
+
+TEE_Result TA_OpenSessionEntryPoint(uint32_t param_types, TEE_Param params[4],
+                                    void **sess_ctx) {
+  DMSG("Open Session entry point\n");
+
+  return RUSTEE_OpenSession(param_types, params, sess_ctx);
+}
+
+void TA_CloseSessionEntryPoint(void *sess_ctx) {
+  DMSG("Close Session entry point\n");
+
+  return RUSTEE_CloseSession(sess_ctx);
+}
+
+TEE_Result TA_InvokeCommandEntryPoint(void *sess_ctx, uint32_t cmd_id,
                                       uint32_t param_types,
                                       TEE_Param params[4]) {
-    UNUSED(sess_ctx)
+  DMSG("Invoke Command entry point\n");
 
-    return invoke_command(cmd_id, param_types, params);
+  return RUSTEE_InvokeCommand(sess_ctx, cmd_id, param_types, params);
 }

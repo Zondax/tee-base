@@ -3,6 +3,11 @@ default: all
 
 include proj.mk
 
+export SRC ?= ../
+
+#convert to realpath so we can use it later more easily
+export SRC_ = $(realpath $(SRC))
+
 ifdef QEMU_V8
 .PHONY: deps-clean deps-qemu
 # found inside the qemu_v8.mk for optee
@@ -23,7 +28,6 @@ endif
 
 deps:
 	rustup target add $(RUST_TARGET)
-	git clone $(REPO) src
 
 all:
 	$(MAKE) -C host all

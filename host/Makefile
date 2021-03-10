@@ -6,11 +6,11 @@ include ../proj.mk
 current_dir = $(shell pwd)
 
 all:
-	cd ../src/$(HOST) && cargo build --target $(RUST_TARGET) --release --target-dir $(current_dir)/target
+	cd $(SRC_)/$(HOST) && cargo build --target $(RUST_TARGET) --release --target-dir $(current_dir)/target
 	$(MAKE) -C src CROSS_COMPILE="$(HOST_CROSS_COMPILE)" --no-builtin-variables
 
 clean: cclean
-	cd ../src/$(HOST) && cargo clean --target-dir $(current_dir)/target
+	cd $(SRC_)/$(HOST) && cargo clean --target-dir $(current_dir)/target
 	- rm $(SHARED_FOLDER)/$(PROJ_NAME)
 
 cclean:

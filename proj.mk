@@ -1,12 +1,10 @@
 #set common environment variables betwen the framework makefiles
 export PROJ_NAME ?= remotee_signer
 
+#folder inside src that contains the Host source
 export HOST ?= REE
+#folder inside serc that contains the TA source
 export TA ?= TEE
-
-ifndef REPO
-$(error Please specify REPO where to find the source code)
-endif
 
 # Set environment according to /optee/build/common.mk & specific
 

@@ -9,7 +9,7 @@ OBJDUMP ?= $(CROSS_COMPILE)objdump
 READELF ?= $(CROSS_COMPILE)readelf
 
 CFLAGS 	+= -Wall -I../../ta/src/include -I$(TEEC_EXPORT)/usr/include -I./include -fPIC
-CFLAGS 	+= -I../../src/$(HOST)/lib/include
+CFLAGS 	+= -I$(SRC_)/$(HOST)/lib/include
 
 LDFLAGS += --hash-style=gnu
 LDLIBS 	+= -lteec -L$(TEEC_EXPORT)/lib

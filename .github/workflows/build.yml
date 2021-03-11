@@ -1,0 +1,33 @@
+name: Build sample
+on:
+  # Triggers the workflow on push or pull request events but only for the master branch
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+  # So we can trigger manually
+  workflow_dispatch:
+
+jobs:
+  build:
+    # Run this workflow in our optee self-hosted runner
+    runs-on: tee-ci
+
+    steps:
+      # Check out the framework locally
+      - uses: actions/checkout@v2
+      
+      # Check out the tee-template echo application
+      - uses: actions/checkout@v2
+        with:
+          repository: 'Zondax/tee-substrate-service'
+          ref: 'tee-template'
+          path: 'tee-template'
+          token: ${{ secrets.TEE_TEMPLATE_TOKEN }}
+          
+      - run: export OPTEE=$HOME/runner-storage/optee-qemuv8-3.12.0 QEMU_V8=1 SHARED_FOLDER=$HOME/qemu-shared-folder
+      - run: mkdir -p $SHARED_FOLDER
+      
+      - name: Build the application
+        run: SRC=tee-template make

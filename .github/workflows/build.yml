@@ -30,6 +30,7 @@ jobs:
           ref: "tee-template"
           path: "tee-template"
           token: ${{ secrets.TEE_TEMPLATE_TOKEN }}
+          submodules: "true"
 
       - run: mkdir -p $SHARED_FOLDER
 

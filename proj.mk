@@ -1,5 +1,5 @@
 #set common environment variables betwen the framework makefiles
-export PROJ_NAME ?= remotee_signer
+export PROJ_NAME ?= rustee_app
 
 #folder inside src that contains the Host source
 export HOST ?= REE

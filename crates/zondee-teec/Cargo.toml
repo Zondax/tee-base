@@ -1,0 +1,19 @@
+[dependencies]
+heapless = { default-features = false, version = "0.5" }
+libc = { default-features = false, version = "0.2" }
+serde = { default-features = false, optional = true, version = "1.0" }
+zondee = { path = "../zondee", version = "0.1" }
+zondee-macros = { optional = true, path = "../zondee-macros", version = "0.1" }
+
+[features]
+default = []
+framework = ["zondee/with-serde_cbor", "zondee/with-serde", "with-serde", "with-zondee-macros", "zondee-macros/framework"]
+with-serde = ["serde"]
+with-zondee-macros = ["zondee-macros"]
+
+[package]
+authors = ["Zondax GmbH <info@zondax.ch>"]
+name = "zondee-teec"
+version = "0.1.0"
+edition = "2018"
+readme = "README.md"

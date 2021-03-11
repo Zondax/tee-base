@@ -1,4 +1,5 @@
 /src
+**/*/Cargo.lock
 **/*/target
 **/*/8d22f026-eb0a-4401-b575-5cf59327119b.*
 **/*/*.cmd
@@ -6,4 +7,4 @@
 **/*/*.o
 **/*/*.lds
 **/*/dyn_list
-**/*/remotee_signer
+**/*/rustee_app

@@ -1,0 +1,16 @@
+[dependencies]
+arrayvec = {default-features = false, version = "0.5.2"}
+serde = { default-features = false, optional = true, version = "1.0" }
+serde_cbor = { default-features = false, optional = true, version = "0.11" }
+
+[features]
+default = []
+with-serde = ["serde"]
+with-serde_cbor = ["serde_cbor"]
+
+[package]
+authors = ["Zondax GmbH <info@zondax.ch>"]
+name = "zondee"
+version = "0.1.0"
+edition = "2018"
+readme = "README.md"

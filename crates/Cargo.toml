@@ -1,0 +1,4 @@
+[workspace]
+members = ["zondee-utee", "zondee-teec", "zondee", "zondee-macros"]
+
+resolver = "2"

@@ -36,3 +36,22 @@ jobs:
 
       - name: Build the application
         run: SRC=tee-template make
+
+  test:
+    needs: build
+    runs-on: tee-ci
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/checkout@v2
+        with:
+          repository: "Zondax/tee-substrate-service"
+          ref: "tee-template"
+          path: "tee-template"
+          token: ${{ secrets.TEE_TEMPLATE_TOKEN }}
+          submodules: "true"
+
+      - run: mkdir -p $SHARED_FOLDER
+
+      - name: Run the application tests
+        run: SRC=tee-template make ci run

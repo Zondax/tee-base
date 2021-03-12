@@ -17,7 +17,7 @@ qemu-clean:
 
 #build qemu
 qemu:
-	$(MAKE) -C $(OPTEE)/build -j4 \
+	$(MAKE) -C $(OPTEE)/build \
 		QEMU_VIRTFS_ENABLE=y \
 		QEMU_VIRTFS_AUTOMOUNT=y \
 		QEMU_VIRTFS_MOUNTPOINT=/root \
@@ -30,20 +30,24 @@ deps:
 	rustup target add $(RUST_TARGET)
 
 all:
-	$(MAKE) -C host all
+	$(MAKE) -C host $@
+	$(MAKE) -C ta $@
+
+ci:
+	$(MAKE) -C host $@
 	$(MAKE) -C ta all
 
 copy:
-	$(MAKE) -C ta copy
-	$(MAKE) -C host copy
+	$(MAKE) -C ta $@
+	$(MAKE) -C host $@
 
 clean: cclean
-	$(MAKE) -C host clean
-	$(MAKE) -C ta clean
+	$(MAKE) -C host $@
+	$(MAKE) -C ta $@
 
 cclean:
-	$(MAKE) -C host cclean
-	$(MAKE) -C ta cclean
+	$(MAKE) -C host $@
+	$(MAKE) -C ta $@
 
 run: copy
 	$(MAKE) -C $(OPTEE)/build run-only

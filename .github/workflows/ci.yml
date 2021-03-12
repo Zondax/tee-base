@@ -10,12 +10,22 @@ on:
   workflow_dispatch:
 
 env:
-  SHARED_FOLDER: ${HOME}/qemu-shared-folder
   QEMU_V8: 1
+  SHARED_FOLDER: ${HOME}/qemu-shared-folder/
   OPTEE: ${HOME}/actions-runner/optee-qemuv8-3.12.0
+  SCRIPTS: ${HOME}/actions-runner/scripts
 
 jobs:
+  prepare:
+    runs-on: tee-ci
+
+    steps:
+      - run: mkdir -p $SHARED_FOLDER
+      - run: cp -r $SCRIPTS $SHARED_FOLDER/scripts
+
   build:
+    needs: prepare
+
     # Run this workflow in our optee self-hosted runner
     runs-on: tee-ci
 
@@ -32,13 +42,11 @@ jobs:
           token: ${{ secrets.TEE_TEMPLATE_TOKEN }}
           submodules: "true"
 
-      - run: mkdir -p $SHARED_FOLDER
-
       - name: Build the application
         run: SRC=tee-template make
 
   test:
-    needs: build
+    needs: [prepare, build]
     runs-on: tee-ci
 
     steps:
@@ -50,8 +58,6 @@ jobs:
           path: "tee-template"
           token: ${{ secrets.TEE_TEMPLATE_TOKEN }}
           submodules: "true"
-
-      - run: mkdir -p $SHARED_FOLDER
 
       - name: Run the application tests
         run: SRC=tee-template make ci run

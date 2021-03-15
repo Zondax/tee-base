@@ -11,21 +11,9 @@ on:
 
 env:
   QEMU_V8: 1
-  SHARED_FOLDER: ${HOME}/qemu-shared-folder/
-  OPTEE: ${HOME}/actions-runner/optee-qemuv8-3.12.0
-  SCRIPTS: ${HOME}/actions-runner/scripts
 
 jobs:
-  prepare:
-    runs-on: tee-ci
-
-    steps:
-      - run: mkdir -p $SHARED_FOLDER
-      - run: cp -r $SCRIPTS $SHARED_FOLDER/scripts
-
   build:
-    needs: prepare
-
     # Run this workflow in our optee self-hosted runner
     runs-on: tee-ci
 
@@ -42,11 +30,17 @@ jobs:
           token: ${{ secrets.TEE_TEMPLATE_TOKEN }}
           submodules: "true"
 
+      - run: |
+          echo "SHARED_FOLDER=$HOME/qemu-shared-folder" >> $GITHUB_ENV
+          echo "OPTEE=$HOME/actions-runner/optee-qemuv8-3.12.0" >> $GITHUB_ENV
+
+      - run: mkdir -p $SHARED_FOLDER
+
       - name: Build the application
         run: SRC=tee-template make
 
   test:
-    needs: [prepare, build]
+    needs: build
     runs-on: tee-ci
 
     steps:
@@ -59,5 +53,14 @@ jobs:
           token: ${{ secrets.TEE_TEMPLATE_TOKEN }}
           submodules: "true"
 
+      - run: |
+          echo "SHARED_FOLDER=$HOME/qemu-shared-folder" >> $GITHUB_ENV
+          echo "OPTEE=$HOME/actions-runner/optee-qemuv8-3.12.0" >> $GITHUB_ENV
+          echo "SCRIPTS=$HOME/actions-runner/scripts" >> $GITHUB_ENV
+
+      - run: |
+          mkdir -p $SHARED_FOLDER
+          cp -r $SCRIPTS $SHARED_FOLDER/scripts
+
       - name: Run the application tests
-        run: SRC=tee-template make ci run
+        run: SRC=tee-template make ci cclean run

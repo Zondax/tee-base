@@ -8,3 +8,4 @@
 **/*/*.lds
 **/*/dyn_list
 **/*/rustee_app
+**/*/*.out

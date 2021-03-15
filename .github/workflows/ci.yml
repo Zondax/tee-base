@@ -17,6 +17,9 @@ jobs:
     # Run this workflow in our optee self-hosted runner
     runs-on: tee-ci
 
+    env:
+      SRC: tee-template
+
     steps:
       # Check out the framework locally
       - uses: actions/checkout@v2
@@ -26,7 +29,7 @@ jobs:
         with:
           repository: "Zondax/tee-substrate-service"
           ref: "tee-template"
-          path: "tee-template"
+          path: ${{ env.SRC }}
           token: ${{ secrets.TEE_TEMPLATE_TOKEN }}
           submodules: "true"
 
@@ -37,11 +40,14 @@ jobs:
       - run: mkdir -p $SHARED_FOLDER
 
       - name: Build the application
-        run: SRC=tee-template make
+        run: make
 
   test:
     needs: build
     runs-on: tee-ci
+
+    env:
+      SRC: tee-template
 
     steps:
       - uses: actions/checkout@v2
@@ -49,7 +55,7 @@ jobs:
         with:
           repository: "Zondax/tee-substrate-service"
           ref: "tee-template"
-          path: "tee-template"
+          path: ${{ env.SRC }}
           token: ${{ secrets.TEE_TEMPLATE_TOKEN }}
           submodules: "true"
 
@@ -62,5 +68,8 @@ jobs:
           mkdir -p $SHARED_FOLDER
           cp -r $SCRIPTS $SHARED_FOLDER/scripts
 
+      - name: Build the application
+        run: make ci
+
       - name: Run the application tests
-        run: SRC=tee-template make ci cclean run
+        run: "bash ./scripts/run_ci_tests.sh"

@@ -40,10 +40,18 @@ wait
 echo "DONE!" "Filtering into tests output"
 grep -Pzo ".*TESTS STARTING(?s:.*)TESTS FINISHED" normal_world.out > tests.out
 
-echo "------------- TESTS OUTPUT -----------------"
-cat tests.out
+if [[ ! -s tests.out ]]; then
+    #file doesn't exist / size is 0, so our grep didn't work!
+    echo "----------------- NO TESTS DETECTED ------------------"
+    echo "-------------------- RUN OUTPUT ----------------------"
+    cat normal_world.out
+    exit 2
+fi
 
-echo -e "\n-------------- RUN SUMMARY -----------------"
+echo "------------- TESTS OUTPUT -----------------"
+cat tests.out; echo
+
+echo "-------------- RUN SUMMARY -----------------"
 success=$(grep -c "SUCCESS" tests.out)
 failed=$(grep -c "FAILURE" tests.out)
 echo "Successful tests: $success"
@@ -59,6 +67,7 @@ else
     message="FAILURE"
     result=1
 fi
+
 echo "------------- TESTS $message -------------"
 
 exit "$result"

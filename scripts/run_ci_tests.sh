@@ -3,8 +3,8 @@
 # This will kill all spawned processes
 cleanup() {
     jobs=$(jobs -p)
-    if [[ ! -z "$jobs" ]]; then
-        kill $jobs &> /dev/null
+    if [[ -n "$jobs" ]]; then
+        kill "$jobs" &> /dev/null
     fi
     exit
 }
@@ -21,9 +21,9 @@ make run) &
 # it will also save all output to the second argument specified
 capture_output() {
     PORT=$1
-    FILE=$(realpath $2)
+    FILE=$(realpath "$2")
     
-    while ! nc localhost $PORT > $2; do
+    while ! nc localhost "$PORT" > "$FILE"; do
         sleep 1;
     done
 }
@@ -56,7 +56,7 @@ success=$(grep -c "SUCCESS" tests.out)
 failed=$(grep -c "FAILURE" tests.out)
 echo "Successful tests: $success"
 echo "Failed tests: $failed"
-let "total = $success + $failed"
+((total = "$success" + "$failed" ))
 echo "Tests run: $total"
 
 message=""

@@ -53,7 +53,7 @@ jobs:
           cp -r $SCRIPTS $SHARED_FOLDER/scripts
 
       - name: Build the application
-        run: make ci
+        run: make cclean ci
 
       - name: Run the application tests
         run: "bash ./scripts/run_ci_tests.sh"

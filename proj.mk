@@ -51,4 +51,4 @@ export TEEC_ROOT=$(TEEC_EXPORT)/usr
 export QEMU_VIRTFS_ENABLE = y
 export QEMU_VIRTFS_AUTOMOUNT = y
 export QEMU_VIRTFS_HOST_DIR = $(SHARED_FOLDER)
-export HOSTFWD = ,hostfwd=tcp::8080-:39946
+export HOSTFWD = ,hostfwd=tcp::10710-:39946

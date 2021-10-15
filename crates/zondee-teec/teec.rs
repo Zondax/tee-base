@@ -802,7 +802,6 @@ pub union TEEC_Parameter {
     pub tmpref: TEEC_TempMemoryReference,
     pub memref: TEEC_RegisteredMemoryReference,
     pub value: TEEC_Value,
-    _bindgen_union_align: [u64; 3usize],
 }
 #[test]
 fn bindgen_test_layout_TEEC_Parameter() {

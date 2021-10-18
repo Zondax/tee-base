@@ -18,9 +18,7 @@ LDLIBS 	+= -lpthread
 LDLIBS 	+= -lm
 LDLIBS 	+= -ldl
 
-# Add both search paths
-LDLIBS 	+= -L../target/armv7-unknown-linux-gnueabihf/release
-LDLIBS 	+= -L../target/aarch64-unknown-linux-gnu/release
+LDLIBS 	+= -L../target/${RUST_TARGET}/release
 
 ifdef OVERRIDE_SYSROOT
 LDLIBS 	+= --sysroot=$(TEEC_EXPORT)

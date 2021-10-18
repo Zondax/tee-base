@@ -14,12 +14,6 @@ ifdef QEMU_V7
 #qemu v7 also set?
 $(error Please set EITHER QEMU_V8 OR QEMU_V7 but not both)
 endif
-else
-#qemu v8 not set
-ifndef QEMU_V7
-#qemu v7 also not set
-$(error Plese set either QEMU_V8 or QEMU_V7)
-endif
 endif
 
 ifdef QEMU_V7

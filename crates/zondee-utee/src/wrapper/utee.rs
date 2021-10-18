@@ -672,7 +672,6 @@ fn bindgen_test_layout_TEE_Identity() {
 pub union TEE_Param {
     pub memref: TEE_Param__bindgen_ty_1,
     pub value: TEE_Param__bindgen_ty_2,
-    _bindgen_union_align: [u64; 2usize],
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -842,7 +841,6 @@ pub struct TEE_ObjectInfo {
 pub union TEE_ObjectInfo__bindgen_ty_1 {
     pub keySize: u32,
     pub objectSize: u32,
-    _bindgen_union_align: u32,
 }
 #[test]
 fn bindgen_test_layout_TEE_ObjectInfo__bindgen_ty_1() {
@@ -892,7 +890,6 @@ impl Default for TEE_ObjectInfo__bindgen_ty_1 {
 pub union TEE_ObjectInfo__bindgen_ty_2 {
     pub maxKeySize: u32,
     pub maxObjectSize: u32,
-    _bindgen_union_align: u32,
 }
 #[test]
 fn bindgen_test_layout_TEE_ObjectInfo__bindgen_ty_2() {
@@ -1021,7 +1018,6 @@ pub struct TEE_Attribute {
 pub union TEE_Attribute__bindgen_ty_1 {
     pub ref_: TEE_Attribute__bindgen_ty_1__bindgen_ty_1,
     pub value: TEE_Attribute__bindgen_ty_1__bindgen_ty_2,
-    _bindgen_union_align: [u64; 2usize],
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]

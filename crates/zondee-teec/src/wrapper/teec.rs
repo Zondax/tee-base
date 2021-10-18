@@ -513,7 +513,6 @@ pub struct TEEC_SharedMemory {
 pub union TEEC_SharedMemory__bindgen_ty_1 {
     pub dummy: bool,
     pub flags: u8,
-    _bindgen_union_align: u8,
 }
 #[test]
 fn bindgen_test_layout_TEEC_SharedMemory__bindgen_ty_1() {
@@ -854,7 +853,6 @@ pub union TEEC_Parameter {
     pub tmpref: TEEC_TempMemoryReference,
     pub memref: TEEC_RegisteredMemoryReference,
     pub value: TEEC_Value,
-    _bindgen_union_align: [u64; 3usize],
 }
 #[test]
 fn bindgen_test_layout_TEEC_Parameter() {

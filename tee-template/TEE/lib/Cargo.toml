@@ -1,13 +1,13 @@
 [package]
-authors = ["Zondax GmbH <info@zondax.ch>"]
-name = "rustee_ta"
-version = "0.1.0"
-edition = "2018"
-readme = "README.md"
+authors  = ["Zondax GmbH <support@zondax.ch>"]
+name     = "rustee_ta"
+version  = "0.1.0"
+edition  = "2018"
+readme   = "README.md"
 resolver = "2"
 
 [lib]
-name = "rustee_ta"
+name       = "rustee_ta"
 crate-type = ["staticlib"]
 
 [dependencies]

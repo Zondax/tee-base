@@ -1,18 +1,18 @@
-[dependencies]
-proc-macro2 = "1.0"
-quote = "1.0"
-syn = { features = ["full"], version = "1.0" }
-
-[features]
-default = []
-framework = []
+[package]
+authors = ["Zondax GmbH <support@zondax.ch>"]
+name    = "zondee-macros"
+version = "0.1.0"
+edition = "2018"
+readme  = "README.md"
 
 [lib]
 proc-macro = true
 
-[package]
-authors = ["Zondax GmbH <info@zondax.ch>"]
-name = "zondee-macros"
-version = "0.1.0"
-edition = "2018"
-readme = "README.md"
+[features]
+default   = []
+framework = []
+
+[dependencies]
+proc-macro2 = "1.0"
+quote       = "1.0"
+syn         = { features = ["full"], version = "1.0" }

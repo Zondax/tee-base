@@ -7,7 +7,7 @@ out_makefile = mypath + "/include/uuid.mk"
 out_header = mypath + "/include/uuid.h"
 
 v = uuid.uuid4()
-x = list(map(''.join, zip(*[iter(hex(v.fields[5]))] * 2)))[1:]
+x = list(map(''.join, zip(*[iter(v.hex[20:])] * 2)))
 s = ', '.join([F'0x{item}' for item in x])
 
 with open(out_makefile, "w") as f:

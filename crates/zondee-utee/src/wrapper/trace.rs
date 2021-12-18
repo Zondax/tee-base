@@ -1,8 +1,9 @@
+//! Implementation of `log::Log`
+
 use crate::wrapper::raw::{
     _utee_log as utee_log, trace_get_level, trace_set_level, TRACE_DEBUG, TRACE_ERROR, TRACE_FLOW,
     TRACE_INFO, TRACE_MIN,
 };
-use arrayvec::ArrayString;
 use core::fmt;
 use log::{Level, Metadata, Record};
 
@@ -16,7 +17,7 @@ impl log::Log for TEELogger {
 
     fn log(&self, record: &Record) {
         if self.enabled(record.metadata()) {
-            let mut s = ArrayString::<[_; 256]>::new();
+            let mut s = core::alloc::String::with_capacity(256);
             fmt::write(&mut s, *record.args()).expect("Bad formatting");
             s.push('\n');
 

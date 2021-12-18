@@ -1,4 +1,11 @@
-//! This module contains rust adapters to the underlying RNG primitives
+//! Implementation of [::rand::CryptoRng]
+//!
+//! This module contains rust adapters to the underlying RNG primitives,
+//! both rand's and getrandom, each accessible with the respective `rand_core` and `getrandom`
+//!
+//! # Note
+//! `getrandom` is currently unsupported completely as there's an issue in how it's compiled...
+//!
 
 #[cfg(feature = "getrandom")]
 pub fn optee_getrandom(buf: &mut [u8]) -> Result<(), getrandom::Error> {
@@ -13,6 +20,17 @@ mod rand_core_wrapper {
     // and RngCore
     use rand_core::{CryptoRng, Error, RngCore};
 
+    /// Implements the necessary traits from [::rand]
+    ///
+    /// To use specify it as the Rng to use
+    /// # Examples
+    /// ```rust
+    /// # use zondee_utee::wrapper::rand::*;
+    ///
+    /// use rand::Rng;
+    ///
+    /// let num: u32 =  TEERng.gen();
+    /// ```
     #[derive(Default, Copy, Clone)]
     pub struct TEERng;
 

@@ -1,3 +1,6 @@
+//! Contains  simple implementations of useful rust items using
+//! the capabilities offered by the OPTEE API
+
 mod error;
 mod params;
 
@@ -19,8 +22,10 @@ mod uuid;
 
 mod rand;
 
+/// A `GlobalAllocator`
 mod alloc;
 
+/// [WIP] persistent secure data and object storage
 pub mod storage;
 
 #[cfg(feature = "with-zondee-macros")]
@@ -34,6 +39,7 @@ pub use {self::uuid::*, alloc::*, error::*, params::*, rand::*, trace::*, user_t
 
 pub type Result<T> = core::result::Result<T, TaErrorCode>;
 
+/// Panic implementation using `utee_panic`
 pub fn utee_panic(code: u32) -> ! {
     unsafe { raw::_utee_panic(code as _) }
 

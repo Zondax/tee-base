@@ -17,7 +17,7 @@ impl log::Log for TEELogger {
 
     fn log(&self, record: &Record) {
         if self.enabled(record.metadata()) {
-            let mut s = core::alloc::String::with_capacity(256);
+            let mut s = alloc::string::String::with_capacity(256);
             fmt::write(&mut s, *record.args()).expect("Bad formatting");
             s.push('\n');
 

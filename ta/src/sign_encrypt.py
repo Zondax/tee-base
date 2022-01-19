@@ -313,23 +313,25 @@ def main():
                                          'Signature will not be verified.\n',
                                          args.pubkey, args.pubkey)
 
-                if args.algo == 'TEE_ALG_RSASSA_PKCS1_PSS_MGF1_SHA256' and pubkey is not None:
-                    pubkey.verify(
-                        sig,
-                        img_digest,
-                        padding.PSS(
-                            mgf=padding.MGF1(chosen_hash),
-                            salt_length=digest_len
-                        ),
-                        utils.Prehashed(chosen_hash)
-                    )
-                elif args.algo == 'TEE_ALG_RSASSA_PKCS1_V1_5_SHA256' and pubkey is not None:
-                    pubkey.verify(
-                        sig,
-                        img_digest,
-                        padding.PKCS1v15(),
-                        utils.Prehashed(chosen_hash)
-                    )
+                # Verify only if there is a public-key
+                if pubkey is not None:
+                    if args.algo == 'TEE_ALG_RSASSA_PKCS1_PSS_MGF1_SHA256':
+                        pubkey.verify(
+                            sig,
+                            img_digest,
+                            padding.PSS(
+                                mgf=padding.MGF1(chosen_hash),
+                                salt_length=digest_len
+                            ),
+                            utils.Prehashed(chosen_hash)
+                        )
+                    elif args.algo == 'TEE_ALG_RSASSA_PKCS1_V1_5_SHA256':
+                        pubkey.verify(
+                            sig,
+                            img_digest,
+                            padding.PKCS1v15(),
+                            utils.Prehashed(chosen_hash)
+                        )
             except exceptions.InvalidSignature:
                 logger.error('Verification failed, ignoring given signature.')
                 sys.exit(1)

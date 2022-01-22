@@ -9,6 +9,7 @@ current_dir = $(shell pwd)
 all:
 	cd $(SRC_)/$(TA) && cargo build --target $(RUST_TARGET) --release --target-dir $(current_dir)/target
 	$(MAKE) -C src CROSS_COMPILE="$(TA_CROSS_COMPILE)" LDFLAGS=""
+	$(MAKE) -C src sign_ta
 
 clean: cclean
 	cd $(SRC_)/$(TA) && cargo clean --target-dir $(current_dir)/target

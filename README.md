@@ -1,4 +1,4 @@
-# OPTEE Framework
+# RuZTEE Framework
 
 This repository's purpose is to allow the easy build of any OPTEE rust application using the template we provide.
 
